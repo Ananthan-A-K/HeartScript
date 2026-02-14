@@ -34,18 +34,86 @@ export default function LoveCalculator() {
     <div className="text-center mt-12">
       <h1>Love Compatibility Calculator 💘</h1>
 
-      <input
-        type="text"
-        placeholder="Enter first name"
-        onChange={(e) => setName1(e.target.value)}
-      />
+      {/* Name 1 */}
+      <div style={{ position: "relative", display: "inline-block" }}>
+        <input
+          type="text"
+          placeholder="Enter first name"
+          value={name1}
+          onChange={(e) => setName1(e.target.value)}
+          style={{
+            paddingRight: "90px",
+            background: "white",
+            color: "black",
+            border: "1px solid #ccc",
+            padding: "8px",
+            borderRadius: "6px"
+          }}
+        />
+
+        {name1 && (
+          <button
+            onClick={() => setName1("")}
+            style={{
+              position: "absolute",
+              right: "6px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              background: "#ff4d88",
+              color: "white",
+              border: "none",
+              padding: "4px 8px",
+              borderRadius: "6px",
+              cursor: "pointer",
+              fontSize: "12px"
+            }}
+          >
+            ❤️ Remove
+          </button>
+        )}
+      </div>
+
       <br /><br />
 
-      <input
-        type="text"
-        placeholder="Enter second name"
-        onChange={(e) => setName2(e.target.value)}
-      />
+      {/* Name 2 */}
+      <div style={{ position: "relative", display: "inline-block" }}>
+        <input
+          type="text"
+          placeholder="Enter second name"
+          value={name2}
+          onChange={(e) => setName2(e.target.value)}
+          style={{
+            paddingRight: "90px",
+            background: "white",
+            color: "black",
+            border: "1px solid #ccc",
+            padding: "8px",
+            borderRadius: "6px"
+          }}
+        />
+
+        {name2 && (
+          <button
+            onClick={() => setName2("")}
+            style={{
+              position: "absolute",
+              right: "6px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              background: "#ff4d88",
+              color: "white",
+              border: "none",
+              padding: "4px 8px",
+              borderRadius: "6px",
+              cursor: "pointer",
+              fontSize: "12px"
+            }}
+          >
+            ❤️ Remove
+          </button>
+        )}
+      </div>
+
       <br /><br />
 
       <button onClick={calculateLove}>Calculate Love</button>
