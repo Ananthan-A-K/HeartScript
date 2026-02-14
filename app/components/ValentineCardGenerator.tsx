@@ -12,6 +12,7 @@ export default function ValentineCardGenerator() {
   const [alignment, setAlignment] = useState<"left" | "center" | "right">("center");
   const [showCopied, setShowCopied] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [font, setFont] = useState("serif");
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleReset = () => {
@@ -19,6 +20,7 @@ export default function ValentineCardGenerator() {
     setMessage("");
     setTheme("romantic");
     setAlignment("center");
+    setFont("serif"); // ✅ reset font
   };
 
   const handleClearMessage = () => {
@@ -134,7 +136,7 @@ export default function ValentineCardGenerator() {
           Dear <span style="font-style: italic; text-decoration: underline;">${recipient || "Someone Special"}</span>,
         </h2>
 
-        <p style="font-size: 16px; line-height: 1.6; max-width: 300px; margin-bottom: 30px;">
+        <p style="font-size: 16px; line-height: 1.6; max-width: 300px; margin-bottom: 30px; font-family:${font};">
           ${message || "Your beautiful message will appear here..."}
         </p>
 
@@ -293,9 +295,6 @@ export default function ValentineCardGenerator() {
                 placeholder="Recipient Name"
                 className="px-4 py-4 w-full rounded-lg border-2 border-gray-300 focus:border-[#800020] outline-none"
               />
-              <p className="text-sm text-gray-500 mt-1">
-                Enter the name of the person receiving the card.
-              </p>
             </div>
 
             {/* Message */}
@@ -308,10 +307,6 @@ export default function ValentineCardGenerator() {
                 rows={5}
                 className="px-4 py-4 w-full rounded-lg border-2 border-gray-300 focus:border-[#800020] outline-none resize-none"
               />
-
-              <p className="text-sm text-gray-500 mt-1">
-                Write a heartfelt message (max 500 characters).
-              </p>
 
               {message && (
                 <button
@@ -338,12 +333,20 @@ export default function ValentineCardGenerator() {
               <option value="pastel">Pastel Dream</option>
             </select>
 
+            {/* Font Selector */}
+            <select
+              value={font}
+              onChange={(e)=>setFont(e.target.value)}
+              className="px-4 py-3 w-full rounded-lg border-2 border-gray-300 focus:border-[#800020] outline-none"
+            >
+              <option value="serif">Serif</option>
+              <option value="sans-serif">Sans</option>
+              <option value="cursive">Cursive</option>
+              <option value="monospace">Monospace</option>
+            </select>
+
             {/* Alignment */}
             <div>
-              <span className="text-sm font-medium text-gray-700 mb-2 block">
-                Text Alignment
-              </span>
-
               <div className="flex gap-3">
                 {["left","center","right"].map((align)=>(
                   <button
@@ -385,6 +388,7 @@ export default function ValentineCardGenerator() {
             message={message}
             theme={theme}
             alignment={alignment}
+            font={font}   // ✅ passed
           />
 
         </div>
