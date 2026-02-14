@@ -25,7 +25,6 @@ export default function ValentineCardGenerator() {
   const handleDownloadImage = async () => {
     try {
       const html2canvas = (await import("html2canvas")).default;
-
       const downloadCard = createDownloadCard();
       document.body.appendChild(downloadCard);
 
@@ -64,6 +63,7 @@ export default function ValentineCardGenerator() {
       document.body.removeChild(downloadCard);
 
       const imgData = canvas.toDataURL("image/png");
+
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "mm",
@@ -203,7 +203,6 @@ export default function ValentineCardGenerator() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 w-full items-start">
 
           <div className="flex flex-col gap-8">
-
             <div>
               <h1 className="font-display text-5xl font-bold text-gray-900 mb-3">
                 Create Your<br />Valentine Card
@@ -221,9 +220,6 @@ export default function ValentineCardGenerator() {
                 placeholder="Recipient Name"
                 className="px-4 py-4 w-full rounded-lg border-2 border-gray-300 focus:border-[#800020] outline-none"
               />
-              <p className="text-sm text-gray-500 mt-1">
-                Enter the name of the person receiving the card.
-              </p>
             </div>
 
             <div>
@@ -235,19 +231,6 @@ export default function ValentineCardGenerator() {
                 rows={5}
                 className="px-4 py-4 w-full rounded-lg border-2 border-gray-300 focus:border-[#800020] outline-none resize-none"
               />
-
-              {message && (
-                <button
-                  onClick={handleClearMessage}
-                  className="mt-2 text-sm text-[#800020] hover:text-[#630019] font-semibold transition"
-                >
-                  ❤️ Clear Message
-                </button>
-              )}
-
-              <div className="text-right text-xs text-gray-400 mt-1">
-                {message.length} / 500 characters
-              </div>
             </div>
 
             <select
@@ -260,7 +243,7 @@ export default function ValentineCardGenerator() {
               <option value="pastel">Pastel Dream</option>
             </select>
 
-            {/* Alignment */}
+            {/* ✅ ADDED ALIGNMENT UI ONLY */}
             <div>
               <span className="text-sm font-medium text-gray-700 mb-2 block">
                 Text Alignment
@@ -298,7 +281,6 @@ export default function ValentineCardGenerator() {
                 Next: Preview →
               </button>
             </div>
-
           </div>
 
           <CardPreview
@@ -307,7 +289,66 @@ export default function ValentineCardGenerator() {
             theme={theme}
             alignment={alignment}
           />
+        </div>
+      )}
 
+      {/* STEP 2 */}
+      {step === 2 && (
+        <div className="w-full max-w-4xl text-center">
+          <h1 className="font-display text-5xl font-bold text-gray-900 mb-6">
+            Preview Your Card
+          </h1>
+
+          <div className="flex justify-center mb-8">
+            <CardPreview
+              recipient={recipient}
+              message={message}
+              theme={theme}
+              alignment={alignment}
+            />
+          </div>
+
+          <div className="flex gap-4 justify-center">
+            <button
+              onClick={() => setStep(1)}
+              className="px-8 py-4 border rounded-xl"
+            >
+              Back
+            </button>
+
+            <button
+              onClick={() => setStep(3)}
+              className="px-8 py-4 bg-[#800020] text-white rounded-xl"
+            >
+              Continue →
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 3 */}
+      {step === 3 && (
+        <div className="w-full max-w-4xl text-center">
+          <h1 className="font-display text-5xl font-bold text-gray-900 mb-6">
+            Share Your Love
+          </h1>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <button onClick={handleDownloadImage} className="p-8 border rounded-xl">
+              <Download size={40} className="mx-auto mb-2" />
+              Download PNG
+            </button>
+
+            <button onClick={handleDownloadPDF} className="p-8 border rounded-xl">
+              <FileText size={40} className="mx-auto mb-2" />
+              Download PDF
+            </button>
+
+            <button onClick={handleEmail} className="p-8 border rounded-xl">
+              <Mail size={40} className="mx-auto mb-2" />
+              Email
+            </button>
+          </div>
         </div>
       )}
 
