@@ -39,8 +39,11 @@ export default function CardPreview({
       {/* glass container */}
       <div
         data-card-preview
-        className="relative z-10 w-full max-w-md bg-white/70 backdrop-blur-xl border border-white/40 p-8 rounded-2xl shadow-xl"
+        className="relative z-10 w-full max-w-md bg-white/70 backdrop-blur-xl border border-white/40 p-8 rounded-2xl shadow-xl
+        transition-all duration-500
+        hover:shadow-[0_0_60px_rgba(244,63,94,0.35)]"
       >
+
         {/* title */}
         <h3 className="text-center text-xs tracking-[0.25em] text-gray-500 font-semibold mb-6">
           VALENTINE CARD PREVIEW
@@ -49,8 +52,12 @@ export default function CardPreview({
         {/* card */}
         <div
           data-card-inner
-          className="relative aspect-[4/5] rounded-xl overflow-hidden shadow-2xl"
+          className="relative aspect-[4/5] rounded-xl overflow-hidden shadow-2xl
+          transition-all duration-500
+          shadow-[0_0_40px_rgba(244,63,94,0.18)]
+          hover:shadow-[0_0_80px_rgba(244,63,94,0.45)]"
         >
+
           {/* gradient theme */}
           <div className={`absolute inset-0 ${themeStyles[theme]}`} />
 
