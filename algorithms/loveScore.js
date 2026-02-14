@@ -1,34 +1,14 @@
-/**
- * Love Score Calculator
- * Author: Saina Fathima
- *
- * Description:
- * Calculates compatibility score based on common letters.
- */
-
 function loveScore(name1, name2) {
-  name1 = name1.toLowerCase();
-  name2 = name2.toLowerCase();
+  // remove spaces and normalize
+  name1 = name1.trim();
+  name2 = name2.trim();
 
-  let score = 0;
+  const length1 = name1.length;
+  const length2 = name2.length;
 
-  for (let i = 0; i < name1.length; i++) {
-    if (name2.includes(name1[i])) {
-      score += 10;
-    }
-  }
-
-  if (score > 100) score = 100;
+  const score = ((length1 + length2) * 7) % 101;
 
   return score;
 }
 
-// Example usage
-console.log("Love Score:", loveScore("Rahul", "Priya"));
-
-/**
- * Time Complexity:
- * O(n × m)
- * n = length of first name
- * m = length of second name
- */
+export default loveScore;
