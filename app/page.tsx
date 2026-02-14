@@ -140,7 +140,16 @@ export default function Home() {
   icon: Target,
   color: "from-pink-500 to-rose-500",
   path: "/catch-the-heart",
-}
+},
+{
+  id: "relationship-survival-simulator",
+  title: "Relationship Survival Simulator",
+  description: "Make choices and keep your relationship alive. Every decision matters ❤️",
+  icon: Heart,
+  color: "from-rose-500 to-red-600",
+  path: "/relationship-survival-simulator",
+},
+
 
 
   ];
@@ -170,173 +179,123 @@ export default function Home() {
         )}
       </motion.button>
 
-      <FloatingHearts />
-<<<<<<< ui-enhancements
       
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-        <div className="absolute top-[-20%] left-[-10%] w-[700px] h-[700px] bg-pink-300/20 blur-[120px] rounded-full mix-blend-multiply animate-pulse" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-red-200/20 blur-[100px] rounded-full mix-blend-multiply animate-pulse delay-1000" />
-      </div>
+<FloatingHearts />
 
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        
-        
-=======
+{/* Background glow */}
+<div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+  <div className="absolute top-[-20%] left-[-10%] w-[700px] h-[700px] bg-pink-300/20 blur-[120px] rounded-full mix-blend-multiply animate-pulse" />
+  <div className="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-red-200/20 blur-[100px] rounded-full mix-blend-multiply animate-pulse delay-1000" />
+</div>
 
-      <div className="container mx-auto px-4 py-16 relative z-10">
+<div className="container mx-auto px-4 py-16 relative z-10">
 
-        {/* Header */}
->>>>>>> main
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <h1 className="font-display text-5xl md:text-6xl font-bold text-[#F075AE]">
-            Love Algorithms
-          </h1>
-          <p className="text-xl text-[#EE6983] max-w-2xl mx-auto mt-4">
-            Explore our collection of romantic algorithms and tools to celebrate love
-          </p>
-        </motion.div>
+  {/* Header */}
+  <motion.div
+    initial={{ opacity: 0, y: -20 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="text-center mb-16"
+  >
+    <h1 className="font-display text-5xl md:text-6xl font-bold text-[#F075AE]">
+      Love Algorithms
+    </h1>
+    <p className="text-xl text-[#EE6983] max-w-2xl mx-auto mt-4">
+      Explore our collection of romantic algorithms and tools to celebrate love
+    </p>
+  </motion.div>
 
-<<<<<<< ui-enhancements
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {algorithms.map((algo, index) => (
-            <motion.div
-              key={algo.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              onClick={() => router.push(algo.path)}
-              className="group cursor-pointer"
-            >
-              <div className="relative h-full bg-[#] backdrop-blur-sm rounded-2xl shadow-lg hover:bg-[#FFE4EF] hover:shadow-2xl transition-all duration-300 overflow-hidden border border-white/50">
-                
-                
-                <div className={`absolute inset-0 bg-gradient-to-br ${algo.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
-                
-                
-                <div className="relative p-8">
-                  
-                  
-              <div className="mb-6 group-hover:scale-110 transition-transform duration-300">
-                <img
-                  src={
-                    algo.id === "love-calculator"
-                      ? "/calc.webp"
-                      : algo.id === "flames"
-                      ? "/flames.webp"
-                      : algo.id === "nickname-generator"
-                      ? "/nickname.webp"
-                      : algo.id === "card-creator"
-                      ? "/val-card.webp"
-                      : algo.id === "Marry"
-                      ? "/marry.webp"
-                      : algo.id === "truth-or-dare"
-                      ? "/truth-dare.webp"
-                      : algo.id === "drake-equation"
-                      ? "/equation.webp"
-                      : algo.id === "love-quiz"
-                      ? "/quiz.webp"
-                      : "/heart.webp"
-                  }
-                  alt={algo.title}
-                  className="w-20 h-20 object-contain drop-shadow-md"
-                />
-                 </div>
-                  {/* Title */}
-                  <h3 className="font-display text-2xl font-bold text-[#F75270] mb-3 group-hover:text-pink-600 transition-colors">
-                    {algo.title}
-                  </h3>
+  {/* Search */}
+  <div className="max-w-2xl mx-auto mb-10">
+    <div className="relative">
+      <input
+        type="text"
+        placeholder="Search algorithms..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="w-full px-5 py-3 rounded-full border border-pink-200 focus:outline-none focus:ring-2 focus:ring-pink-400 text-pink-700 placeholder-pink-300 shadow-sm"
+      />
+      <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-pink-400" />
+    </div>
+  </div>
 
-                  {/* Description */}
-                  <p className="text-[#E45A92] leading-relaxed mb-6">
-                    {algo.description}
-                  </p>
+  {/* Grid */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+    {filteredAlgorithms.map((algo, index) => (
+      <motion.div
+        key={algo.id}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.1 }}
+        onClick={() => router.push(algo.path)}
+        className="group cursor-pointer"
+      >
+        <div className="relative h-full backdrop-blur-sm rounded-2xl shadow-lg hover:bg-[#FFE4EF] hover:shadow-2xl transition-all duration-300 overflow-hidden border border-white/50">
 
-                  {/* CTA */}
-                  <div className="flex items-center text-[#E45A92] font-semibold group-hover:gap-3 gap-2 transition-all">
-                    <span>Try it now</span>
-                    <span className="group-hover:translate-x-1 transition-transform">→</span>
-=======
-        {/* Search */}
-        <div className="max-w-2xl mx-auto mb-10">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search algorithms..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-5 py-3 rounded-full border border-pink-200 focus:outline-none focus:ring-2 focus:ring-pink-400 text-pink-700 placeholder-pink-300 shadow-sm"
-            />
-            <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-pink-400" />
+          <div className={`absolute inset-0 bg-gradient-to-br ${algo.color} opacity-0 group-hover:opacity-10 transition-opacity`} />
+
+          <div className="relative p-8">
+
+            {/* Image icon */}
+            <div className="mb-6 group-hover:scale-110 transition-transform duration-300">
+              <img
+                src={
+                  algo.id === "love-calculator"
+                    ? "/calc.webp"
+                    : algo.id === "flames"
+                    ? "/flames.webp"
+                    : algo.id === "nickname-generator"
+                    ? "/nickname.webp"
+                    : algo.id === "card-creator"
+                    ? "/val-card.webp"
+                    : algo.id === "Marry"
+                    ? "/marry.webp"
+                    : algo.id === "truth-or-dare"
+                    ? "/truth-dare.webp"
+                    : algo.id === "drake-equation"
+                    ? "/equation.webp"
+                    : algo.id === "love-quiz"
+                    ? "/quiz.webp"
+                    : "/heart.webp"
+                }
+                alt={algo.title}
+                className="w-20 h-20 object-contain drop-shadow-md"
+              />
+            </div>
+
+            <h3 className="font-display text-2xl font-bold text-[#F75270] mb-3 group-hover:text-pink-600">
+              {algo.title}
+            </h3>
+
+            <p className="text-[#E45A92] mb-6">
+              {algo.description}
+            </p>
+
+            <div className="flex items-center text-[#E45A92] font-semibold group-hover:gap-3 gap-2">
+              <span>Try it now</span>
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+
           </div>
+
+          <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20">
+            <Heart className="w-12 h-12 text-pink-500 fill-pink-500" />
+          </div>
+
         </div>
+      </motion.div>
+    ))}
+  </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {filteredAlgorithms.map((algo, index) => {
-            const Icon = algo.icon;
-            return (
-              <motion.div
-                key={algo.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                onClick={() => router.push(algo.path)}
-                className="group cursor-pointer"
-              >
-                <div className="relative h-full rounded-2xl shadow-lg hover:bg-[#FFE4EF] hover:shadow-2xl transition-all duration-300 overflow-hidden border border-white/50">
+  {/* Empty state */}
+  {filteredAlgorithms.length === 0 && (
+    <p className="text-center text-pink-400 mt-10 text-lg">
+      No algorithms found 💔
+    </p>
+  )}
 
-                  <div className={`absolute inset-0 bg-gradient-to-br ${algo.color} opacity-0 group-hover:opacity-10 transition-opacity`} />
+</div>
 
-                  <div className="relative p-8">
-
-                    <div className="mb-6 group-hover:scale-110 transition-transform">
-                      <Icon className="w-16 h-16 text-pink-500 drop-shadow-md" />
-                    </div>
-
-                    <h3 className="font-display text-2xl font-bold text-[#F75270] mb-3 group-hover:text-pink-600">
-                      {algo.title}
-                    </h3>
-
-                    <p className="text-[#E45A92] mb-6">
-                      {algo.description}
-                    </p>
-
-                    <div className="flex items-center text-[#E45A92] font-semibold group-hover:gap-3 gap-2">
-                      <span>Try it now</span>
-                      <span className="group-hover:translate-x-1 transition-transform">→</span>
-                    </div>
-                  </div>
-
-                  <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20">
-                    <Heart className="w-12 h-12 text-pink-500 fill-pink-500" />
->>>>>>> main
-                  </div>
-
-<<<<<<< ui-enhancements
-                
-                <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <Heart className="w-12 h-12 text-pink-500 fill-pink-500" />
-=======
->>>>>>> main
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Empty state */}
-        {filteredAlgorithms.length === 0 && (
-          <p className="text-center text-pink-400 mt-10 text-lg">
-            No algorithms found 💔
-          </p>
-        )}
-
-      </div>
+          
     </main>
   );
 }
