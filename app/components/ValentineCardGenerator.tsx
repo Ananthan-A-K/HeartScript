@@ -324,7 +324,7 @@ style={{width:step===1?"0%":step===2?"50%":"100%"}}/>
 
 <button onClick={generateRandomQuote}
 className="px-4 py-2 bg-[#800020] text-white rounded-lg">
-💌 Generate Random Love Quote
+💌 Generate Love Quote
 </button>
 
 <input value={recipient} onChange={e=>setRecipient(e.target.value)}
@@ -413,7 +413,8 @@ className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50">
 </select>
 
 <div className="flex gap-4">
-<button onClick={handleReset} className="flex-1 border py-3 rounded">Reset</button>
+<button onClick={handleReset} className="flex-1 border py-3 rounded">Reset Card
+</button>
 <button
   onClick={() => {
     if (validateStepOne()) {
@@ -449,7 +450,7 @@ className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50">
 <div className="flex gap-4 justify-center mt-8">
 <button onClick={()=>setStep(1)} className="border px-6 py-3"><ArrowLeft/> Back</button>
 <button onClick={()=>setStep(3)} className="bg-[#800020] text-white px-6 py-3">
-Send <Send/>
+Send Card <Send/>
 </button>
 </div>
 
@@ -509,7 +510,7 @@ Send <Send/>
 
 <button onClick={handleCopyLink} className="border p-6 rounded">
 {showCopied?<Check/>:<Copy/>}
-{showCopied?"Copied!":"Copy Link"}
+{showCopied ? "Copied!" : "Copy Share Link"}
 </button>
 
 <button onClick={()=>handleDownloadImage("png")} className="border p-6 rounded"><Download/> PNG</button>
