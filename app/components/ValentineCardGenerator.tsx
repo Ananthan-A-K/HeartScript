@@ -21,15 +21,15 @@ export default function ValentineCardGenerator() {
   const [recipient, setRecipient] = useState("");
   const [message, setMessage] = useState("");
   const [theme, setTheme] = useState("romantic");
-  const [alignment, setAlignment] = useState<"left" | "center" | "right">(
-    "center"
-  );
+  const [alignment, setAlignment] = useState<"left" | "center" | "right">("center");
   const [font, setFont] = useState("serif");
   const [error, setError] = useState<string | null>(null);
 
   const [stickers, setStickers] = useState<
     { id: number; x: number; y: number; emoji: string }[]
   >([]);
+
+  const [showCopied, setShowCopied] = useState(false);
 
   /* ---------------- VALIDATION ---------------- */
   const validateStepOne = () => {
@@ -146,6 +146,35 @@ export default function ValentineCardGenerator() {
           <CardPreview
             {...{ recipient, message, theme, alignment, font, stickers }}
           />
+        </div>
+      )}
+
+      {/* STEP 3 – Disabled action tooltips */}
+      {step === 3 && (
+        <div className="grid grid-cols-2 gap-4 max-w-xl">
+          <button
+            disabled={!message.trim()}
+            title={!message.trim() ? "Add a message to enable WhatsApp sharing" : ""}
+            className="border p-6 rounded disabled:opacity-50"
+          >
+            💬 WhatsApp
+          </button>
+
+          <button
+            disabled={!message.trim()}
+            title={!message.trim() ? "Write a message to share on Twitter" : ""}
+            className="border p-6 rounded disabled:opacity-50"
+          >
+            🐦 Twitter (X)
+          </button>
+
+          <button
+            disabled={!message.trim()}
+            title={!message.trim() ? "Add a message to copy an Instagram caption" : ""}
+            className="border p-6 rounded disabled:opacity-50"
+          >
+            📸 Instagram Caption
+          </button>
         </div>
       )}
     </main>
