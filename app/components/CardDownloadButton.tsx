@@ -69,83 +69,111 @@ export const CardDownloadButton: React.FC<CardDownloadButtonProps> = ({
 
   return (
     <div className="download-container">
-      <div className={`wax-seal ${downloadComplete ? 'sealed' : ''}`}>
-        <svg
-          viewBox="0 0 100 100"
-          className="seal-stamp"
-          style={{
-            filter: downloadComplete ? 'none' : 'grayscale(0.3)',
-          }}
-        >
-          <circle cx="50" cy="50" r="48" fill="#8B1538" opacity="0.9" />
-          <circle cx="50" cy="50" r="45" fill="#A01D48" />
+      <div className="love-letter-seal">
 
-          <path
-            d="M50 65 Q35 55 35 45 Q35 35 45 35 Q50 40 50 40 Q50 40 55 35 Q65 35 65 45 Q65 55 50 65"
-            fill="#8B1538"
-            stroke="#6B0F2A"
-            strokeWidth="1"
-          />
+        <div className={`wax-seal ${downloadComplete ? 'sealed' : ''}`}>
+          <svg
+            viewBox="0 0 100 100"
+            className="seal-stamp"
+            style={{
+              filter: downloadComplete ? 'none' : 'grayscale(0.3)',
+            }}
+          >
+            <circle cx="50" cy="50" r="48" fill="#8B1538" opacity="0.9" />
+            <circle cx="50" cy="50" r="45" fill="#A01D48" />
 
-          <ellipse cx="30" cy="90" rx="8" ry="4" fill="#8B1538" opacity="0.6" />
-          <ellipse cx="70" cy="88" rx="6" ry="3" fill="#8B1538" opacity="0.6" />
-          <ellipse cx="50" cy="92" rx="7" ry="4" fill="#8B1538" opacity="0.6" />
-        </svg>
+            <path
+              d="M50 65 Q35 55 35 45 Q35 35 45 35 Q50 40 50 40 Q50 40 55 35 Q65 35 65 45 Q65 55 50 65"
+              fill="#8B1538"
+              stroke="#6B0F2A"
+              strokeWidth="1"
+            />
 
-        {downloadComplete && (
-          <div className="checkmark-overlay">
-            <svg viewBox="0 0 52 52" className="checkmark">
-              <circle cx="26" cy="26" r="25" fill="none" />
-              <path fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-            </svg>
+            <ellipse cx="30" cy="90" rx="8" ry="4" fill="#8B1538" opacity="0.6" />
+            <ellipse cx="70" cy="88" rx="6" ry="3" fill="#8B1538" opacity="0.6" />
+            <ellipse cx="50" cy="92" rx="7" ry="4" fill="#8B1538" opacity="0.6" />
+          </svg>
+
+          {downloadComplete && (
+            <div className="checkmark-overlay">
+              <svg viewBox="0 0 52 52" className="checkmark">
+                <circle cx="26" cy="26" r="25" fill="none" />
+                <path fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+              </svg>
+            </div>
+          )}
+        </div>
+
+        <div className="stamp-buttons">
+          <button
+            onClick={() => handleDownload('png')}
+            disabled={isDownloading}
+            className="stamp-btn png-stamp"
+            aria-label="Download as PNG"
+          >
+            <div className="stamp-border">
+              <div className="stamp-content">
+                <span className="stamp-text">PNG</span>
+                <div className="postmark">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </button>
+
+          <button
+            onClick={() => handleDownload('jpeg')}
+            disabled={isDownloading}
+            className="stamp-btn jpeg-stamp"
+            aria-label="Download as JPEG"
+          >
+            <div className="stamp-border">
+              <div className="stamp-content">
+                <span className="stamp-text">JPEG</span>
+                <div className="postmark">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </button>
+        </div>
+
+        {/* Paper texture overlay */}
+        <div className="paper-texture" aria-hidden="true"></div>
+
+        {/* Ribbon decoration */}
+        <div className="ribbon-decoration">
+          <svg viewBox="0 0 200 30" className="ribbon">
+            <path d="M0,15 Q50,5 100,15 T200,15" stroke="#C4969B" strokeWidth="8" fill="none" opacity="0.6"/>
+            <path d="M0,15 Q50,25 100,15 T200,15" stroke="#D4A6AB" strokeWidth="6" fill="none" opacity="0.4"/>
+          </svg>
+        </div>
+
+        {/* Loading/Success message */}
+        {(isDownloading || downloadComplete) && (
+          <div className="download-message">
+            {isDownloading && !downloadComplete && (
+              <p className="message-text">
+                <span className="heart-pulse">❤</span> Sealing your love letter...
+              </p>
+            )}
+            {downloadComplete && (
+              <p className="message-text success">
+                <span className="sparkle">✨</span> Card sealed & delivered!
+              </p>
+            )}
           </div>
         )}
+
       </div>
-
-      <div className="stamp-buttons">
-        <button
-          onClick={() => handleDownload('png')}
-          disabled={isDownloading}
-          className="stamp-btn png-stamp"
-          aria-label="Download as PNG"
-        >
-          <div className="stamp-border">
-            <div className="stamp-content">
-              <span className="stamp-text">PNG</span>
-              <div className="postmark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </button>
-
-        <button
-          onClick={() => handleDownload('jpeg')}
-          disabled={isDownloading}
-          className="stamp-btn jpeg-stamp"
-          aria-label="Download as JPEG"
-        >
-          <div className="stamp-border">
-            <div className="stamp-content">
-              <span className="stamp-text">JPEG</span>
-              <div className="postmark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </button>
-      </div>
-
-      {isDownloading && <p>⏳ Downloading...</p>}
-      {downloadComplete && <p>✅ Download complete!</p>}
 
       <style jsx>{`
         .download-container {
@@ -153,115 +181,110 @@ export const CardDownloadButton: React.FC<CardDownloadButtonProps> = ({
           text-align: center;
         }
 
-        .wax-seal {
+        .love-letter-seal {
           position: relative;
-          width: 120px;
-          height: 120px;
-          margin: 0 auto 2rem;
-          transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .wax-seal.sealed {
-          transform: rotate(360deg) scale(1.1);
-        }
-
-        .seal-stamp {
-          width: 100%;
-          height: 100%;
-          filter: drop-shadow(0 4px 8px rgba(139, 21, 56, 0.4));
-          transition: transform 0.3s ease;
-        }
-
-        .wax-seal:hover .seal-stamp {
-          transform: scale(1.05) rotate(-5deg);
-        }
-
-        .checkmark-overlay {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          animation: fadeIn 0.3s ease-in;
-        }
-
-        .checkmark {
-          width: 60px;
-          height: 60px;
-          stroke: #FFF;
-          stroke-width: 3;
-        }
-
-        .stamp-buttons {
-          display: flex;
-          gap: 1.5rem;
-          justify-content: center;
-          z-index: 2;
-        }
-
-        .stamp-btn {
-          position: relative;
-          padding: 0;
-          background: none;
-          border: none;
-          cursor: pointer;
-          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-          font-family: 'Courier New', monospace;
-        }
-
-        .stamp-btn:hover:not(:disabled) {
-          transform: translateY(-4px) rotate(-2deg);
-        }
-
-        .stamp-btn:active:not(:disabled) {
-          transform: translateY(0) rotate(0deg);
-        }
-
-        .stamp-btn:disabled {
-          opacity: 0.6;
-          cursor: not-allowed;
-        }
-
-        .stamp-border {
-          position: relative;
-          padding: 4px;
-          background: linear-gradient(135deg, #8B1538 0%, #A01D48 100%);
-          filter: drop-shadow(0 4px 6px rgba(139, 21, 56, 0.3));
-        }
-
-        .stamp-content {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          width: 100px;
-          height: 100px;
-          background: linear-gradient(135deg, #FFF5F7 0%, #FFE8EC 100%);
+          gap: 2rem;
+          padding: 2.5rem;
+          background: linear-gradient(
+            135deg,
+            #FFF5F7 0%,
+            #FFE8EC 50%,
+            #FFF5F7 100%
+          );
+          border-radius: 12px;
+          box-shadow: 
+            0 8px 16px rgba(139, 21, 56, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+          border: 1px solid rgba(196, 150, 155, 0.3);
+          overflow: hidden;
+        }
+
+        .paper-texture {
+          position: absolute;
+          inset: 0;
+          background-image: 
+            repeating-linear-gradient(
+              0deg,
+              transparent,
+              transparent 2px,
+              rgba(139, 21, 56, 0.02) 2px,
+              rgba(139, 21, 56, 0.02) 4px
+            ),
+            repeating-linear-gradient(
+              90deg,
+              transparent,
+              transparent 2px,
+              rgba(139, 21, 56, 0.02) 2px,
+              rgba(139, 21, 56, 0.02) 4px
+            );
+          pointer-events: none;
+          opacity: 0.5;
+        }
+
+        .ribbon-decoration {
+          position: absolute;
+          bottom: -10px;
+          left: 0;
+          right: 0;
+          pointer-events: none;
+        }
+
+        .ribbon {
+          width: 100%;
+          height: 30px;
+        }
+
+        .download-message {
+          min-height: 32px;
+          text-align: center;
+          margin-top: 1rem;
+        }
+
+        .message-text {
+          margin: 0;
+          font-family: 'Georgia', serif;
+          font-size: 1rem;
           color: #8B1538;
+          font-style: italic;
+          animation: fadeInUp 0.4s ease-out;
         }
 
-        .stamp-text {
-          font-size: 1.25rem;
-          font-weight: bold;
-          letter-spacing: 2px;
-          text-transform: uppercase;
+        .message-text.success {
+          color: #2D7A2C;
+          font-weight: 500;
         }
 
-        .postmark {
-          width: 24px;
-          height: 24px;
-          opacity: 0.7;
+        .heart-pulse {
+          display: inline-block;
+          animation: pulse 1s ease-in-out infinite;
         }
 
-        @keyframes fadeIn {
+        .sparkle {
+          display: inline-block;
+          animation: sparkle 0.6s ease-in-out;
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.2); }
+        }
+
+        @keyframes sparkle {
+          0%, 100% { transform: scale(1) rotate(0deg); }
+          50% { transform: scale(1.3) rotate(180deg); }
+        }
+
+        @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: scale(0.8);
+            transform: translateY(10px);
           }
           to {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
           }
         }
       `}</style>
