@@ -30,10 +30,26 @@
 }
 
 body {
-  background: var(--color-background);
+  /* 🌸 Softer Valentine Premium Gradient */
+  background: linear-gradient(-45deg, #fff1f2, #ffe4e6, #fff1f2, #ffe4e6);
+  background-size: 400% 400%;
+  animation: gradientBG 18s ease infinite;
+
   color: var(--color-foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   overflow-x: hidden;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes pulse-slow {
