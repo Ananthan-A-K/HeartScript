@@ -11,7 +11,7 @@ export default function LayoutContent({
   const isHomePage = pathname === "/";
 
   return (
-    <div className={isHomePage ? "" : "pt-16"}>
+    <div className="pt-20">
       {children}
     </div>
   );
