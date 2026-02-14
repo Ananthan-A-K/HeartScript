@@ -18,72 +18,72 @@ export default function ValentineCardGenerator() {
 
   const handleDownloadImage = async () => {
     try {
-      const html2canvas = (await import('html2canvas')).default;
-      
-      // Create temporary download card
+      const html2canvas = (await import("html2canvas")).default;
+
       const downloadCard = createDownloadCard();
       document.body.appendChild(downloadCard);
-      
+
       const canvas = await html2canvas(downloadCard, {
         scale: 2,
-        backgroundColor: '#ffffff',
+        backgroundColor: "#ffffff",
         logging: false,
       });
-      
+
       document.body.removeChild(downloadCard);
-      
-      const link = document.createElement('a');
-      link.download = `valentine-card-${recipient || 'card'}.png`;
-      link.href = canvas.toDataURL('image/png');
+
+      const link = document.createElement("a");
+      link.download = `valentine-card-${recipient || "card"}.png`;
+      link.href = canvas.toDataURL("image/png");
       link.click();
     } catch (error) {
-      console.error('Download failed:', error);
-      alert('Download failed. Please try again.');
+      console.error("Download failed:", error);
+      alert("Download failed. Please try again.");
     }
   };
 
   const handleDownloadPDF = async () => {
     try {
-      const html2canvas = (await import('html2canvas')).default;
-      const { jsPDF } = await import('jspdf');
-      
-      // Create temporary download card
+      const html2canvas = (await import("html2canvas")).default;
+      const { jsPDF } = await import("jspdf");
+
       const downloadCard = createDownloadCard();
       document.body.appendChild(downloadCard);
-      
+
       const canvas = await html2canvas(downloadCard, {
         scale: 2,
-        backgroundColor: '#ffffff',
+        backgroundColor: "#ffffff",
         logging: false,
       });
-      
+
       document.body.removeChild(downloadCard);
-      
-      const imgData = canvas.toDataURL('image/png');
+
+      const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4',
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
       });
-      
+
       const imgWidth = 190;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
-      pdf.save(`valentine-card-${recipient || 'card'}.pdf`);
+      pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+      pdf.save(`valentine-card-${recipient || "card"}.pdf`);
     } catch (error) {
-      console.error('Download failed:', error);
-      alert('Download failed. Please try again.');
+      console.error("Download failed:", error);
+      alert("Download failed. Please try again.");
     }
   };
 
   const createDownloadCard = () => {
     const themeGradients: Record<string, string> = {
-      romantic: 'linear-gradient(135deg, #ec4899 0%, #f43f5e 50%, #800020 100%)',
-      dark: 'linear-gradient(135deg, #1f2937 0%, #111827 50%, #000000 100%)',
-      pastel: 'linear-gradient(135deg, #fbcfe8 0%, #e9d5ff 50%, #bfdbfe 100%)',
+      romantic:
+        "linear-gradient(135deg, #ec4899 0%, #f43f5e 50%, #800020 100%)",
+      dark: "linear-gradient(135deg, #1f2937 0%, #111827 50%, #000000 100%)",
+      pastel:
+        "linear-gradient(135deg, #fbcfe8 0%, #e9d5ff 50%, #bfdbfe 100%)",
     };
 
-    const card = document.createElement('div');
+    const card = document.createElement("div");
     card.style.cssText = `
       position: fixed;
       left: -9999px;
@@ -109,10 +109,10 @@ export default function ValentineCardGenerator() {
       ">
         <div style="font-size: 48px; margin-bottom: 20px;">❤️</div>
         <h2 style="font-size: 36px; font-weight: bold; margin-bottom: 20px;">
-          Dear <span style="font-style: italic; text-decoration: underline;">${recipient || 'Someone Special'}</span>,
+          Dear <span style="font-style: italic; text-decoration: underline;">${recipient || "Someone Special"}</span>,
         </h2>
         <p style="font-size: 16px; line-height: 1.6; max-width: 300px; margin-bottom: 30px;">
-          ${message || 'Your beautiful message will appear here...'}
+          ${message || "Your beautiful message will appear here..."}
         </p>
         <div style="font-style: italic; font-size: 20px;">With Love ✨</div>
       </div>
@@ -123,41 +123,39 @@ export default function ValentineCardGenerator() {
 
   const handleEmail = async () => {
     try {
-      const html2canvas = (await import('html2canvas')).default;
-      
-      // Create temporary download card
+      const html2canvas = (await import("html2canvas")).default;
+
       const downloadCard = createDownloadCard();
       document.body.appendChild(downloadCard);
-      
+
       const canvas = await html2canvas(downloadCard, {
         scale: 2,
-        backgroundColor: '#ffffff',
+        backgroundColor: "#ffffff",
         logging: false,
       });
-      
+
       document.body.removeChild(downloadCard);
-      
-      const imageData = canvas.toDataURL('image/png');
-      
-      // Create mailto link with image as attachment (note: this has limitations)
+
+      const imageData = canvas.toDataURL("image/png");
+
       const subject = encodeURIComponent(`Valentine Card for ${recipient}`);
       const body = encodeURIComponent(
-        `Dear ${recipient},\n\n${message}\n\nWith Love ❤️\n\nNote: Please find the attached valentine card image.`
+        `Dear ${recipient},\n\n${message}\n\nWith Love ❤️`
       );
-      
-      // Open email client
+
       window.location.href = `mailto:?subject=${subject}&body=${body}`;
-      
-      // Also download the image for manual attachment
-      const link = document.createElement('a');
-      link.download = `valentine-card-${recipient || 'card'}.png`;
+
+      const link = document.createElement("a");
+      link.download = `valentine-card-${recipient || "card"}.png`;
       link.href = imageData;
       link.click();
-      
-      alert('Email client opened! The card image has been downloaded. Please attach it manually to your email.');
+
+      alert(
+        "Email client opened! The card image has been downloaded. Please attach it manually."
+      );
     } catch (error) {
-      console.error('Email failed:', error);
-      alert('Failed to prepare email. Please try again.');
+      console.error("Email failed:", error);
+      alert("Failed to prepare email.");
     }
   };
 
@@ -171,7 +169,7 @@ export default function ValentineCardGenerator() {
           <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -z-10" />
           <div 
             className="absolute top-1/2 left-0 h-0.5 bg-[#800020] -z-10 transition-all duration-500"
-            style={{ width: step === 1 ? '0%' : step === 2 ? '50%' : '100%' }}
+            style={{ width: step === 1 ? "0%" : step === 2 ? "50%" : "100%" }}
           />
 
           <Step number={1} label="Personalize" active={step >= 1} />
@@ -182,11 +180,10 @@ export default function ValentineCardGenerator() {
       </div>
 
 
-      {/* STEP 1: PERSONALIZE */}
+      {/* STEP 1 */}
       {step === 1 && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 w-full items-start">
 
-          {/* LEFT SIDE */}
           <div className="flex flex-col gap-8">
 
             <div>
@@ -201,12 +198,17 @@ export default function ValentineCardGenerator() {
 
 
             {/* Recipient */}
-            <input
-              value={recipient}
-              onChange={(e)=>setRecipient(e.target.value)}
-              placeholder="Recipient Name"
-              className="px-4 py-4 w-full rounded-lg border-2 border-gray-300 focus:border-[#800020] outline-none"
-            />
+            <div>
+              <input
+                value={recipient}
+                onChange={(e)=>setRecipient(e.target.value)}
+                placeholder="Recipient Name"
+                className="px-4 py-4 w-full rounded-lg border-2 border-gray-300 focus:border-[#800020] outline-none"
+              />
+              <p className="text-sm text-gray-500 mt-1">
+                Enter the name of the person receiving the card.
+              </p>
+            </div>
 
 
             {/* Message */}
@@ -219,6 +221,9 @@ export default function ValentineCardGenerator() {
                 rows={5}
                 className="px-4 py-4 w-full rounded-lg border-2 border-gray-300 focus:border-[#800020] outline-none resize-none"
               />
+              <p className="text-sm text-gray-500 mt-1">
+                Write a heartfelt message (max 500 characters).
+              </p>
 
               <div className="text-right text-xs text-gray-400 mt-1">
                 {message.length} / 500 characters
@@ -226,7 +231,7 @@ export default function ValentineCardGenerator() {
             </div>
 
 
-            {/* Theme Selector */}
+            {/* Theme */}
             <div>
               <span className="text-sm font-medium text-gray-700 mb-2 block">
                 Select Theme
@@ -241,6 +246,10 @@ export default function ValentineCardGenerator() {
                 <option value="dark">Dark Love</option>
                 <option value="pastel">Pastel Dream</option>
               </select>
+
+              <p className="text-sm text-gray-500 mt-1">
+                Choose a visual theme for your card design.
+              </p>
             </div>
 
 
@@ -265,7 +274,6 @@ export default function ValentineCardGenerator() {
           </div>
 
 
-          {/* RIGHT SIDE PREVIEW */}
           <CardPreview
             recipient={recipient}
             message={message}
@@ -275,127 +283,9 @@ export default function ValentineCardGenerator() {
         </div>
       )}
 
-
-      {/* STEP 2: PREVIEW */}
-      {step === 2 && (
-        <div className="w-full max-w-4xl">
-          
-          <div className="text-center mb-8">
-            <h1 className="font-display text-5xl font-bold text-gray-900 mb-3">
-              Preview Your Card
-            </h1>
-            <p className="text-gray-600">
-              Make sure everything looks perfect.
-            </p>
-          </div>
-
-          <div className="flex justify-center mb-8">
-            <CardPreview
-              recipient={recipient}
-              message={message}
-              theme={theme}
-            />
-          </div>
-
-          <div className="flex gap-4 justify-center">
-            <button 
-              onClick={() => setStep(1)}
-              className="px-8 py-4 border-2 border-gray-300 text-gray-700 font-bold rounded-xl hover:bg-gray-50"
-            >
-              ← Back to Edit
-            </button>
-            <button 
-              onClick={() => setStep(3)}
-              className="px-8 py-4 bg-[#800020] hover:bg-[#630019] text-white font-bold rounded-xl shadow-lg"
-            >
-              Continue to Send →
-            </button>
-          </div>
-
-        </div>
-      )}
-
-
-      {/* STEP 3: SEND */}
-      {step === 3 && (
-        <div className="w-full max-w-4xl">
-          
-          <div className="text-center mb-8">
-            <h1 className="font-display text-5xl font-bold text-gray-900 mb-3">
-              Share Your Love
-            </h1>
-            <p className="text-gray-600">
-              Choose how you'd like to send your card.
-            </p>
-          </div>
-
-          <div className="flex justify-center mb-8">
-            <div className="scale-75">
-              <CardPreview
-                recipient={recipient}
-                message={message}
-                theme={theme}
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <button
-              onClick={handleDownloadImage}
-              className="flex flex-col items-center gap-4 p-8 border-2 border-gray-300 rounded-xl hover:border-[#800020] hover:bg-pink-50 transition-all"
-            >
-              <Download size={48} className="text-[#800020]" />
-              <div>
-                <h3 className="font-bold text-lg mb-1">Image</h3>
-                <p className="text-sm text-gray-600">Download as PNG</p>
-              </div>
-            </button>
-
-            <button
-              onClick={handleDownloadPDF}
-              className="flex flex-col items-center gap-4 p-8 border-2 border-gray-300 rounded-xl hover:border-[#800020] hover:bg-pink-50 transition-all"
-            >
-              <FileText size={48} className="text-[#800020]" />
-              <div>
-                <h3 className="font-bold text-lg mb-1">PDF</h3>
-                <p className="text-sm text-gray-600">Download as PDF</p>
-              </div>
-            </button>
-
-            <button
-              onClick={handleEmail}
-              className="flex flex-col items-center gap-4 p-8 border-2 border-gray-300 rounded-xl hover:border-[#800020] hover:bg-pink-50 transition-all"
-            >
-              <Mail size={48} className="text-[#800020]" />
-              <div>
-                <h3 className="font-bold text-lg mb-1">Email</h3>
-                <p className="text-sm text-gray-600">Send via email</p>
-              </div>
-            </button>
-          </div>
-
-          <div className="flex gap-4 justify-center">
-            <button 
-              onClick={() => setStep(2)}
-              className="px-8 py-4 border-2 border-gray-300 text-gray-700 font-bold rounded-xl hover:bg-gray-50"
-            >
-              ← Back
-            </button>
-            <button 
-              onClick={() => setStep(1)}
-              className="px-8 py-4 bg-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-300"
-            >
-              Create Another Card
-            </button>
-          </div>
-
-        </div>
-      )}
-
     </main>
   );
 }
-
 
 
 function Step({ number, label, active }: any){
