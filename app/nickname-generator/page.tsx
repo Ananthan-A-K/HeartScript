@@ -29,7 +29,8 @@ export default function NicknameGeneratorPage() {
           placeholder="Enter first name"
           value={name1}
           onChange={(e) => setName1(e.target.value)}
-          className="w-full p-3 rounded-lg bg-black/30 border border-white/10 outline-none"
+          className="w-full p-3 rounded-lg bg-white text-black border border-gray-300 outline-none
+          focus:outline-none focus:ring-4 focus:ring-pink-400/70 focus:border-pink-500 transition duration-200"
         />
 
         {/* Name 2 */}
@@ -38,7 +39,8 @@ export default function NicknameGeneratorPage() {
           placeholder="Enter second name"
           value={name2}
           onChange={(e) => setName2(e.target.value)}
-          className="w-full p-3 rounded-lg bg-black/30 border border-white/10 outline-none"
+          className="w-full p-3 rounded-lg bg-white text-black border border-gray-300 outline-none
+          focus:outline-none focus:ring-4 focus:ring-pink-400/70 focus:border-pink-500 transition duration-200"
         />
 
         {/* Button */}
