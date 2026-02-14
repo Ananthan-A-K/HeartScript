@@ -448,10 +448,23 @@ className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50">
 <CardPreview {...{recipient,message,theme,alignment,font,stickers,moveSticker}}/>
 
 <div className="flex gap-4 justify-center mt-8">
-<button onClick={()=>setStep(1)} className="border px-6 py-3"><ArrowLeft/> Back</button>
-<button onClick={()=>setStep(3)} className="bg-[#800020] text-white px-6 py-3">
-Send Card <Send/>
+<button
+  onClick={() => setStep(1)}
+  className="flex items-center gap-2 border px-6 py-3"
+>
+  <ArrowLeft />
+  Back
 </button>
+
+<button
+  onClick={() => setStep(3)}
+  className="flex items-center gap-2 bg-[#800020] text-white px-6 py-3"
+>
+  <Send />
+  Send Card
+</button>
+
+
 </div>
 
 </div>
@@ -512,14 +525,30 @@ Send Card <Send/>
 )}
 
 
-<button onClick={handleEmail} className="border p-6 rounded"><Mail/> Email</button>
-
-<button onClick={handleCopyLink} className="border p-6 rounded">
-{showCopied?<Check/>:<Copy/>}
-{showCopied ? "Copied!" : "Copy Share Link"}
+<button
+  onClick={handleEmail}
+  className="flex items-center gap-2 border p-6 rounded"
+>
+  <Mail />
+  Email
 </button>
 
-<button onClick={()=>handleDownloadImage("png")} className="border p-6 rounded"><Download/> PNG</button>
+<button
+  onClick={handleCopyLink}
+  className="flex items-center gap-2 border p-6 rounded"
+>
+  {showCopied ? <Check /> : <Copy />}
+  {showCopied ? "Copied!" : "Copy Share Link"}
+</button>
+
+
+<button
+  onClick={() => handleDownloadImage("png")}
+  className="flex items-center gap-2 border p-6 rounded"
+>
+  <Download />
+  PNG
+</button>
 
 <button onClick={()=>handleDownloadImage("jpeg")} className="border p-6 rounded"><Download/> JPG</button>
 
