@@ -6,6 +6,7 @@ export default function LoveCalculator() {
   const [name1, setName1] = useState("");
   const [name2, setName2] = useState("");
   const [result, setResult] = useState(null);
+  const [error, setError] = useState("");
 
   const sanitize = (value) =>
     value.trim().toLowerCase().replace(/[^a-z]/g, "");
@@ -14,6 +15,13 @@ export default function LoveCalculator() {
     const clean1 = sanitize(name1);
     const clean2 = sanitize(name2);
 
+    if (!clean1 || !clean2) {
+      setError("Please enter valid names (letters only).");
+      setResult(null);
+      return;
+    }
+
+    setError("");
     const percentage = loveScore(clean1, clean2);
     setResult(percentage);
   };
@@ -54,7 +62,11 @@ export default function LoveCalculator() {
           Calculate Love ❤️
         </button>
 
-        {result !== null && (
+        {error && (
+          <p className="text-red-500 mt-3 text-sm">{error}</p>
+        )}
+
+        {result !== null && !error && (
           <div className="mt-6">
             <h2 className="text-xl font-semibold">
               {result}% Compatible
