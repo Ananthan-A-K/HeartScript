@@ -2,7 +2,6 @@
 import { useState } from "react";
 import loveScore from "@/algorithms/loveScore";
 
-
 /*
 Love Compatibility Calculator
 Time Complexity: O(n)
@@ -21,10 +20,9 @@ export default function LoveCalculator() {
   const [result, setResult] = useState(null);
 
   const calculateLove = () => {
-  const percentage = loveScore(name1, name2);
-  setResult(percentage);
-};
-
+    const percentage = loveScore(name1, name2);
+    setResult(percentage);
+  };
 
   const getMessage = (percentage) => {
     if (percentage > 90) return "Made for each other 💖";
@@ -58,7 +56,30 @@ export default function LoveCalculator() {
           <p>{getMessage(result)}</p>
         </div>
       )}
+
+      {/* Explanation Section */}
+      <hr style={{ margin: "40px 0" }} />
+
+      <div style={{ maxWidth: "600px", margin: "0 auto", textAlign: "left" }}>
+        <h2>How This Love Algorithm Works 💡</h2>
+
+        <p>
+          This calculator uses a simple algorithm to estimate compatibility
+          between two names.
+        </p>
+
+        <ul>
+          <li>Both names are combined into one string.</li>
+          <li>Each character is converted into its ASCII value.</li>
+          <li>All values are summed.</li>
+          <li>The total is taken modulo 101 to generate a percentage.</li>
+        </ul>
+
+        <p><strong>Time Complexity:</strong> O(n)</p>
+        <p>
+          Where <strong>n</strong> is the total length of both names combined.
+        </p>
+      </div>
     </div>
   );
 }
-
