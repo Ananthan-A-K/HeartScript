@@ -128,12 +128,17 @@ export default function ValentineCardGenerator() {
             {error && <p className="text-sm text-red-500">{error}</p>}
 
             <div className="flex gap-4">
-              <button
-                onClick={handleReset}
-                className="flex-1 border py-3 rounded"
-              >
-                Reset Card
-              </button>
+          <button
+  onClick={() => {
+    if (confirm("Are you sure you want to reset your card?")) {
+      handleReset();
+    }
+  }}
+  className="flex-1 border py-3 rounded"
+>
+  Reset Card
+</button>
+
               <button
                 onClick={() => validateStepOne() && setStep(2)}
                 className="flex-1 bg-[#800020] text-white py-3 rounded"
