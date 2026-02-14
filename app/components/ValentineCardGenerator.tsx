@@ -6,12 +6,15 @@ import {
   Download,
   FileText,
   Mail,
+  MessageCircle,
   Heart,
   ArrowLeft,
   Send,
   Copy,
   Check,
 } from "lucide-react";
+
+import { CardDownloadButton } from "../components/CardDownloadButton";
 
 interface Sticker {
   id: number;
@@ -43,10 +46,11 @@ export default function ValentineCardGenerator() {
   const [font, setFont] = useState("serif");
   const [error, setError] = useState<string | null>(null);
   const [showCopied, setShowCopied] = useState(false);
+  const [showEmoji, setShowEmoji] = useState(false);
+
   const [stickers, setStickers] = useState<Sticker[]>([
-    { id: 1, x: 20, y: 20, emoji: "💖" },
-    { id: 2, x: 200, y: 80, emoji: "💕" },
-    { id: 3, x: 100, y: 200, emoji: "💘" },
+    { id: 1, x: 40, y: 40, emoji: "💖" },
+    { id: 2, x: 220, y: 90, emoji: "💕" },
   ]);
 
   /* ---------------- VALIDATION ---------------- */
@@ -86,6 +90,28 @@ export default function ValentineCardGenerator() {
     setMessage(loveQuotes[randomIndex]);
     setError(null);
   };
+  const handleSurpriseMe = () => {
+  const themes = ["romantic", "cute", "classic"];
+  const fonts = ["serif", "sans", "mono"];
+  const alignments: ("left" | "center" | "right")[] = [
+    "left",
+    "center",
+    "right",
+  ];
+
+  const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+  const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+  const randomAlignment =
+    alignments[Math.floor(Math.random() * alignments.length)];
+  const randomQuote =
+    loveQuotes[Math.floor(Math.random() * loveQuotes.length)];
+
+  setTheme(randomTheme);
+  setFont(randomFont);
+  setAlignment(randomAlignment);
+  setMessage(randomQuote);
+};
+
 
   const handleCopyLink = async () => {
     await navigator.clipboard.writeText(window.location.href);
@@ -102,17 +128,28 @@ export default function ValentineCardGenerator() {
   /* ---------------- UI ---------------- */
   return (
     <main className="flex flex-col items-center px-4 py-8 w-full max-w-6xl mx-auto min-h-screen">
+
       {/* STEP 1 */}
       {step === 1 && (
         <div className="grid lg:grid-cols-2 gap-12 w-full">
           <div className="flex flex-col gap-6">
             <button
               onClick={generateRandomQuote}
-              className="px-4 py-2 bg-[#800020] text-white rounded-lg transition-all duration-300 hover:bg-[#6b001b] hover:shadow-md active:scale-95"
-
+              className="px-4 py-2 bg-[#800020] text-white rounded-lg"
             >
               💌 Generate Love Quote
             </button>
+
+
+            <button
+  onClick={handleSurpriseMe}
+  className="px-4 py-2 bg-pink-500 text-white rounded-lg transition-all duration-300 hover:bg-pink-600 hover:shadow-md active:scale-95"
+>
+  🎲 Surprise Me
+</button>
+
+
+            
 
             {/* Recipient */}
             <div>
@@ -156,21 +193,47 @@ export default function ValentineCardGenerator() {
               </p>
             </div>
 
+            {/* Emoji picker */}
+            <div className="relative">
+              <button
+                title="Add emoji"
+                onClick={() => setShowEmoji(!showEmoji)}
+                className="text-2xl"
+              >
+                😊
+              </button>
+
+              {showEmoji && (
+                <div className="absolute z-10 bg-white border rounded-lg p-2 shadow grid grid-cols-6 gap-2">
+                  {["❤️", "😍", "💕", "💖", "🌹", "✨", "💌"].map((e) => (
+                    <button
+                      key={e}
+                      title={`Insert ${e} emoji`}
+                      onClick={() => {
+                        setMessage((p) => p + e);
+                        setShowEmoji(false);
+                      }}
+                    >
+                      {e}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {error && <p className="text-sm text-red-500">{error}</p>}
 
             <div className="flex gap-4">
               <button
                 onClick={handleReset}
-               className="flex-1 border py-3 rounded transition-all duration-300 hover:bg-gray-100 hover:shadow-sm active:scale-95"
-
+                className="flex-1 border py-3 rounded"
               >
                 Reset Card
               </button>
 
               <button
                 onClick={() => validateStepOne() && setStep(2)}
-               className="flex-1 bg-[#800020] text-white py-3 rounded transition-all duration-300 hover:bg-[#6b001b] hover:shadow-md active:scale-95"
-
+                className="flex-1 bg-[#800020] text-white py-3 rounded"
               >
                 Continue →
               </button>
@@ -187,14 +250,32 @@ export default function ValentineCardGenerator() {
 
       {/* STEP 2 */}
       {step === 2 && (
-        <div className="text-center">
-          <CardPreview
-            {...{ recipient, message, theme, alignment, font }}
-            stickers={stickers}
-            moveSticker={moveSticker}
-          />
+<div className="w-full max-w-4xl text-center">
+  <div className="mb-8">
+    <h2 className="font-display text-3xl font-bold text-gray-900 mb-2">
+      Preview Your Card
+    </h2>
+    <p className="text-gray-600">
+      Here&apos;s how your Valentine card will look
+    </p>
+  </div>
 
-          <div className="flex gap-4 justify-center mt-8">
+  <CardPreview
+    {...{ recipient, message, theme, alignment, font }}
+    stickers={stickers}
+    moveSticker={moveSticker}
+  />
+
+  {/* Decorative Wax Seal Download */}
+  <div className="flex justify-center mt-8 mb-10">
+    <CardDownloadButton
+      cardElementId="valentine-card-preview"
+      cardTitle={`valentine-card-${recipient || "card"}`}
+    />
+  </div>
+
+  {/* Action Buttons */}
+  <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => setStep(1)}
               className="flex items-center gap-2 border px-6 py-3"
@@ -226,7 +307,7 @@ export default function ValentineCardGenerator() {
             <button
               disabled={!message.trim()}
               title={!message.trim() ? "Add a message to enable WhatsApp sharing" : ""}
-              className="border p-6 rounded disabled:opacity-50"
+              className="border p-6 rounded disabled:opacity-50 disabled:cursor-not-allowed"
             >
               💬 WhatsApp
             </button>
@@ -234,7 +315,7 @@ export default function ValentineCardGenerator() {
             <button
               disabled={!message.trim()}
               title={!message.trim() ? "Write a message to share on Twitter" : ""}
-              className="border p-6 rounded disabled:opacity-50"
+              className="border p-6 rounded disabled:opacity-50 disabled:cursor-not-allowed"
             >
               🐦 Twitter (X)
             </button>
@@ -263,10 +344,7 @@ export default function ValentineCardGenerator() {
             </button>
           </div>
 
-          <button
-            onClick={() => setStep(2)}
-            className="mt-8 underline"
-          >
+          <button onClick={() => setStep(2)} className="mt-8 underline">
             ← Back
           </button>
         </div>
@@ -274,3 +352,31 @@ export default function ValentineCardGenerator() {
     </main>
   );
 }
+function Step({
+  number,
+  label,
+  active,
+}: {
+  number: number;
+  label: string;
+  active: boolean;
+}) {
+  return (
+    <div className="flex flex-col items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg">
+      <div
+        className={`w-8 h-8 rounded-full flex items-center justify-center
+        ${active ? "bg-[#800020] text-white" : "bg-gray-200 text-gray-500"}`}
+      >
+        {number}
+      </div>
+      <span
+        className={`${
+          active ? "text-[#800020] font-bold" : "text-gray-600"
+        }`}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
+

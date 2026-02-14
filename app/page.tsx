@@ -1,25 +1,23 @@
 "use client";
 
-import { Heart,Target, Calculator, Flame, MessageCircle, Sparkles, PenTool, Rose, Search, Music2, VolumeX, Smile } from "lucide-react";
+import { Heart, Search, Music2, VolumeX } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import FloatingHearts from "./algorithms/flames/FloatingHearts";
 import { useState, useRef, useEffect } from "react";
 
-
 export default function Home() {
   const router = useRouter();
   const [isPlaying, setIsPlaying] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
       audio.volume = 0.3;
-      audio.play().catch(() => {}).then(() => {
-        setIsPlaying(true);
-      });
+      audio.play().catch(() => {});
+      setIsPlaying(true);
     }
   }, []);
 
@@ -154,6 +152,22 @@ export default function Home() {
 
   ];
 
+  const iconMap = {
+    "love-calculator": "/calc.webp",
+    "flames": "/flames.webp",
+    "nickname-generator": "/nickname.webp",
+    "card-creator": "/val-card.webp",
+    "Marry": "/marry.webp",
+    "truth-or-dare": "/truth-dare.webp",
+    "drake-equation": "/equation.webp",
+    "love-quiz": "/quiz.webp",
+    "spin-the-wheel": "/wheel.webp",
+    "love-doctor": "/doctor.webp",
+    "pickup-lines": "/pickup.webp",
+    "lovers-board": "/board.webp",
+    "catch-the-heart": "/heart.webp"
+  };
+
   const filteredAlgorithms = algorithms.filter(algo =>
     algo.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     algo.description.toLowerCase().includes(searchQuery.toLowerCase())
@@ -161,22 +175,13 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-transparent relative overflow-hidden">
-      
       <audio ref={audioRef} src="/music.mp3" loop preload="auto" />
 
       <motion.button
         onClick={toggleMusic}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="fixed bottom-6 right-6 z-50 p-4 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 transition-all"
+        className="fixed bottom-6 right-6 z-50 p-4 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 shadow-lg"
       >
-        {isPlaying ? (
-          <Music2 className="w-6 h-6 text-white" />
-        ) : (
-          <VolumeX className="w-6 h-6 text-white" />
-        )}
+        {isPlaying ? <Music2 className="w-6 h-6 text-white" /> : <VolumeX className="w-6 h-6 text-white" />}
       </motion.button>
 
       

@@ -6,52 +6,50 @@ import { motion } from "framer-motion";
 export default function LoveDoctor() {
 
   const [name1, setName1] = useState("");
-const [name2, setName2] = useState("");
+  const [name2, setName2] = useState("");
 
-const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [result, setResult] = useState<null | {
-  marriageYear: number;
-  kids: number;
-  breakupChance: number;
-  strength: number;
-}>(null);
+    marriageYear: number;
+    kids: number;
+    breakupChance: number;
+    strength: number;
+  }>(null);
 
-function generatePrediction() {
+  function generatePrediction() {
 
-  if (!name1 || !name2) return;
+    if (!name1 || !name2) return;
 
-  setLoading(true);
-  setResult(null);
+    setLoading(true);
+    setResult(null);
 
-  setTimeout(() => {
+    setTimeout(() => {
 
-    const combined = name1 + name2;
+      const combined = name1 + name2;
 
-    let hash = 0;
+      let hash = 0;
 
-    for (let i = 0; i < combined.length; i++) {
-      hash += combined.charCodeAt(i);
-    }
+      for (let i = 0; i < combined.length; i++) {
+        hash += combined.charCodeAt(i);
+      }
 
-    const marriageYear = 2026 + (hash % 7);
-    const kids = hash % 4;
-    const breakupChance = hash % 101;
-    const strength = 100 - breakupChance;
+      const marriageYear = 2026 + (hash % 7);
+      const kids = hash % 4;
+      const breakupChance = hash % 101;
+      const strength = 100 - breakupChance;
 
-    setResult({
-      marriageYear,
-      kids,
-      breakupChance,
-      strength
-    });
+      setResult({
+        marriageYear,
+        kids,
+        breakupChance,
+        strength
+      });
 
-    setLoading(false);
+      setLoading(false);
 
-  }, 2000);
-
-}
-
+    }, 2000);
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-pink-500 via-rose-500 to-red-600 text-white p-6">
@@ -64,71 +62,78 @@ function generatePrediction() {
         Enter both names and let Love Doctor predict your romantic future 🔮
       </p>
 
+      {/* ✅ UPDATED WHITE PREMIUM INPUT */}
       <input
         type="text"
         placeholder="Your Name"
         value={name1}
         onChange={(e) => setName1(e.target.value)}
-        className="mb-4 p-3 rounded text-black w-64"
+        className="mb-4 p-3 rounded-lg w-64 bg-white text-gray-900 border border-pink-200 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400 transition-all duration-200"
       />
 
+      {/* ✅ UPDATED WHITE PREMIUM INPUT */}
       <input
         type="text"
         placeholder="Partner Name"
         value={name2}
         onChange={(e) => setName2(e.target.value)}
-        className="mb-4 p-3 rounded text-black w-64"
+        className="mb-4 p-3 rounded-lg w-64 bg-white text-gray-900 border border-pink-200 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400 transition-all duration-200"
       />
 
+      {/* EXISTING BUTTON — UNCHANGED */}
       <button
-  onClick={generatePrediction}
-  disabled={loading}
-  className="bg-white text-pink-600 font-bold px-6 py-3 rounded hover:scale-105 transition disabled:opacity-50"
->
-  {loading ? "Analyzing..." : "Predict Future"}
-</button>
+        onClick={generatePrediction}
+        disabled={loading}
+        className="
+          bg-gradient-to-r from-pink-500 to-red-500
+          text-white font-bold px-6 py-3 rounded-xl
+          shadow-lg shadow-pink-500/30
+          hover:scale-105
+          hover:shadow-pink-500/50
+          hover:shadow-[0_0_30px_rgba(255,105,180,0.6)]
+          transition-all duration-300
+          disabled:opacity-50
+        "
+      >
+        {loading ? "Analyzing..." : "Predict Future"}
+      </button>
 
-{loading && (
-  <div className="mt-8 text-center">
-    <p className="text-xl font-bold animate-pulse">
-      🔮 Love Doctor is analyzing your future...
-    </p>
-  </div>
-)}
+      {loading && (
+        <div className="mt-8 text-center">
+          <p className="text-xl font-bold animate-pulse">
+            🔮 Love Doctor is analyzing your future...
+          </p>
+        </div>
+      )}
 
+      {result && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, y: 40 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="mt-8 bg-white text-pink-600 p-6 rounded-lg shadow-lg text-center"
+        >
+          <h2 className="text-2xl font-bold mb-4">
+            🔮 Love Doctor Prediction
+          </h2>
 
-{result && (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.8, y: 40 }}
-    animate={{ opacity: 1, scale: 1, y: 0 }}
-    transition={{ duration: 0.5, ease: "easeOut" }}
-    className="mt-8 bg-white text-pink-600 p-6 rounded-lg shadow-lg text-center"
-  >
+          <p className="mb-2">
+            💍 Marriage Year: <strong>{result.marriageYear}</strong>
+          </p>
 
+          <p className="mb-2">
+            👶 Number of Kids: <strong>{result.kids}</strong>
+          </p>
 
-    <h2 className="text-2xl font-bold mb-4">
-      🔮 Love Doctor Prediction
-    </h2>
+          <p className="mb-2">
+            💔 Breakup Chance: <strong>{result.breakupChance}%</strong>
+          </p>
 
-    <p className="mb-2">
-      💍 Marriage Year: <strong>{result.marriageYear}</strong>
-    </p>
-
-    <p className="mb-2">
-      👶 Number of Kids: <strong>{result.kids}</strong>
-    </p>
-
-    <p className="mb-2">
-      💔 Breakup Chance: <strong>{result.breakupChance}%</strong>
-    </p>
-
-    <p className="mb-2">
-      ❤️ Relationship Strength: <strong>{result.strength}%</strong>
-    </p>
-
-  </motion.div>
-)}
-
+          <p className="mb-2">
+            ❤️ Relationship Strength: <strong>{result.strength}%</strong>
+          </p>
+        </motion.div>
+      )}
 
     </div>
   );
