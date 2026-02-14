@@ -18,6 +18,7 @@ export default function ValentineCardGenerator() {
       {/* Input Section */}
       <div className="space-y-4">
 
+        {/* Recipient */}
         <div>
           <label className="block text-sm font-medium">
             Recipient Name
@@ -26,36 +27,37 @@ export default function ValentineCardGenerator() {
             type="text"
             value={recipient}
             onChange={(e) => setRecipient(e.target.value)}
-            placeholder="Enter recipient name"
+            placeholder="Enter your loved one’s name"
             className="w-full border rounded p-2"
           />
         </div>
 
+        {/* Message */}
         <div>
-  <label className="block text-sm font-medium">
-    Personal Message
-  </label>
+          <label className="block text-sm font-medium">
+            Personal Message
+          </label>
 
-  <textarea
-    value={message}
-    onChange={(e) => {
-      if (e.target.value.length <= 500) {
-        setMessage(e.target.value);
-      }
-    }}
-    placeholder="Write your message"
-    className="w-full border rounded p-2"
-  />
+          <textarea
+            value={message}
+            onChange={(e) => {
+              if (e.target.value.length <= 500) {
+                setMessage(e.target.value);
+              }
+            }}
+            placeholder="Write your heartfelt message here..."
+            className="w-full border rounded p-2"
+          />
 
-  {/* Character Counter */}
-  <div className="text-sm text-gray-500 mt-1 text-right">
-    {message.length} / 500 characters
-  </div>
-</div>
-
+          {/* Character Counter */}
+          <div className="text-sm text-gray-500 mt-1 text-right">
+            {message.length} / 500 characters
+          </div>
+        </div>
 
       </div>
 
+      {/* Reset Button */}
       <button
         onClick={handleReset}
         className="mt-4 w-full bg-gray-200 hover:bg-gray-300 text-black font-medium py-2 rounded"
@@ -63,6 +65,7 @@ export default function ValentineCardGenerator() {
         Clear Form
       </button>
 
+      {/* Preview */}
       <CardPreview
         recipient={recipient}
         message={message}
