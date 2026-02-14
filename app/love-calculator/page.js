@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import loveScore from "@/algorithms/loveScore";
+
 
 /*
 Love Compatibility Calculator
@@ -19,16 +21,10 @@ export default function LoveCalculator() {
   const [result, setResult] = useState(null);
 
   const calculateLove = () => {
-    const combined = (name1 + name2).toLowerCase();
-    let score = 0;
+  const percentage = loveScore(name1, name2);
+  setResult(percentage);
+};
 
-    for (let i = 0; i < combined.length; i++) {
-      score += combined.charCodeAt(i);
-    }
-
-    const percentage = score % 101;
-    setResult(percentage);
-  };
 
   const getMessage = (percentage) => {
     if (percentage > 90) return "Made for each other 💖";
