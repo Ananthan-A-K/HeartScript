@@ -1,4 +1,17 @@
-// algorithms/flames.js
+/**
+ * FLAMES Relationship Engine
+ *
+ * Responsibilities:
+ * - Normalize names
+ * - Detect common character matches
+ * - Generate step-by-step match indices for animation
+ * - Compute remaining character count
+ * - Run FLAMES elimination logic
+ *
+ * Time Complexity: O(n²) worst case (character comparison)
+ * Space Complexity: O(n)
+ */
+
 
 const FLAMES_MAP = {
   F: 'Friends',
@@ -17,11 +30,11 @@ const FLAMES_ARRAY = ['F', 'L', 'A', 'M', 'E', 'S'];
  * @param {string} name2 
  */
 export const calculateFlames = (name1, name2) => {
-  // Normalize names: remove spaces, lowercase
+  
   const n1 = name1.replace(/\s+/g, '').toLowerCase();
   const n2 = name2.replace(/\s+/g, '').toLowerCase();
 
-  // Initialize letter states
+  
   const name1Letters = n1.split('').map((char, i) => ({
     char,
     originalIndex: i,
@@ -38,8 +51,8 @@ export const calculateFlames = (name1, name2) => {
 
   const steps = [];
 
-  // Determine matches
-  // We use a temporary tracking array for name2 to ensure we don't cross the same letter twice
+  
+  
   const name2UsedIndices = new Set();
 
   for (let i = 0; i < name1Letters.length; i++) {
@@ -50,24 +63,20 @@ export const calculateFlames = (name1, name2) => {
 
       const char2 = name2Letters[j].char;
       if (char1 === char2) {
-        // Match found!
+        
         name2UsedIndices.add(j);
         steps.push({
           name1Index: i,
           name2Index: j,
           char: char1
         });
-        break; // Move to next char in Name 1
+        break; 
       }
     }
   }
-
-  // Calculate remaining count
   const totalLength = n1.length + n2.length;
   const matches = steps.length * 2;
   const remainingCount = totalLength - matches;
-
-  // Determine FLAMES result
   let flames = [...FLAMES_ARRAY];
   let currentIndex = 0;
 
