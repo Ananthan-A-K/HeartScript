@@ -7,6 +7,11 @@ export default function ValentineCardGenerator() {
   const [recipient, setRecipient] = useState("");
   const [message, setMessage] = useState("");
 
+  const handleReset = () => {
+    setRecipient("");
+    setMessage("");
+  };
+
   return (
     <div className="p-6 max-w-xl mx-auto">
 
@@ -51,10 +56,17 @@ export default function ValentineCardGenerator() {
 
       </div>
 
+      <button
+        onClick={handleReset}
+        className="mt-4 w-full bg-gray-200 hover:bg-gray-300 text-black font-medium py-2 rounded"
+      >
+        Clear Form
+      </button>
+
       <CardPreview
-  recipient={recipient}
-  message={message}
-/>
+        recipient={recipient}
+        message={message}
+      />
 
     </div>
   );
