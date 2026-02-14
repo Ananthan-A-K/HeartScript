@@ -46,9 +46,8 @@ export default function ValentineCardGenerator() {
   const [showEmoji, setShowEmoji] = useState(false);
 
   const [stickers, setStickers] = useState<Sticker[]>([
-    { id: 1, x: 20, y: 20, emoji: "💖" },
-    { id: 2, x: 200, y: 80, emoji: "💕" },
-    { id: 3, x: 100, y: 200, emoji: "💘" },
+    { id: 1, x: 40, y: 40, emoji: "💖" },
+    { id: 2, x: 220, y: 90, emoji: "💕" },
   ]);
 
   /* ---------------- VALIDATION ---------------- */
@@ -111,8 +110,7 @@ export default function ValentineCardGenerator() {
           <div className="flex flex-col gap-6">
             <button
               onClick={generateRandomQuote}
-              className="px-4 py-2 bg-[#800020] text-white rounded-lg transition-all duration-300 hover:bg-[#6b001b] hover:shadow-md active:scale-95"
-
+              className="px-4 py-2 bg-[#800020] text-white rounded-lg"
             >
               💌 Generate Love Quote
             </button>
@@ -192,16 +190,14 @@ export default function ValentineCardGenerator() {
             <div className="flex gap-4">
               <button
                 onClick={handleReset}
-               className="flex-1 border py-3 rounded transition-all duration-300 hover:bg-gray-100 hover:shadow-sm active:scale-95"
-
+                className="flex-1 border py-3 rounded"
               >
                 Reset Card
               </button>
 
               <button
                 onClick={() => validateStepOne() && setStep(2)}
-               className="flex-1 bg-[#800020] text-white py-3 rounded transition-all duration-300 hover:bg-[#6b001b] hover:shadow-md active:scale-95"
-
+                className="flex-1 bg-[#800020] text-white py-3 rounded"
               >
                 Continue →
               </button>
