@@ -1,6 +1,6 @@
 "use client";
 
-import { Heart, Calculator, Flame, MessageCircle, Sparkles, PenTool, Rose } from "lucide-react";
+import { Heart, Calculator, Flame, MessageCircle, Sparkles, PenTool, Rose, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import FloatingHearts from "./algorithms/flames/FloatingHearts";
